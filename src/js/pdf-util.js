@@ -2,16 +2,17 @@ import { generateQR } from './util'
 import { PDFDocument, StandardFonts } from 'pdf-lib'
 
 const ys = {
-  travail: 578,
-  achats: 533,
-  sante: 477,
-  famille: 435,
-  handicap: 396,
-  sport_animaux: 358,
-  convocation: 295,
-  missions: 255,
-  enfants: 211,
+  travail: 553,
+  achats: 482,
+  sante: 434,
+  famille: 410,
+  handicap: 373,
+  sport_animaux: 349,
+  convocation: 276,
+  missions: 252,
+  enfants: 228,
 }
+
 
 export async function generatePdf (profile, reasons, pdfBase) {
   const creationInstant = new Date()
@@ -69,16 +70,14 @@ export async function generatePdf (profile, reasons, pdfBase) {
     page1.drawText(text, { x, y, size, font })
   }
 
-  drawText(`${firstname} ${lastname}`, 119, 696)
-  drawText(birthday, 119, 674)
-  drawText(placeofbirth, 297, 674)
-  drawText(`${address} ${zipcode} ${city}`, 133, 652)
+  drawText(`${firstname} ${lastname}`, 92, 702)
+  drawText(birthday, 92, 684)
+  drawText(placeofbirth, 214, 684)
+  drawText(`${address} ${zipcode} ${city}`, 104, 665)
 
-  reasons
-    .split(', ')
-    .forEach(reason => {
-      drawText('x', 78, ys[reason], 18)
-    })
+  reasons.split(', ').forEach((reason) => {
+    drawText('x', 47, ys[reason], 12)
+  })
 
   let locationSize = getIdealFontSize(font, profile.city, 83, 7, 11)
 
@@ -90,9 +89,9 @@ export async function generatePdf (profile, reasons, pdfBase) {
     locationSize = 7
   }
 
-  drawText(profile.city, 105, 177, locationSize)
-  drawText(`${profile.datesortie}`, 91, 153, 11)
-  drawText(`${profile.heuresortie}`, 264, 153, 11)
+  drawText(profile.city, 78, 76, locationSize)
+  drawText(`${profile.datesortie}`, 63, 58, 11)
+  drawText(`${profile.heuresortie}`, 227, 58, 11)
 
   // const shortCreationDate = `${creationDate.split('/')[0]}/${
   //   creationDate.split('/')[1]
@@ -109,7 +108,7 @@ export async function generatePdf (profile, reasons, pdfBase) {
 
   page1.drawImage(qrImage, {
     x: page1.getWidth() - 156,
-    y: 100,
+    y: 25,
     width: 92,
     height: 92,
   })
